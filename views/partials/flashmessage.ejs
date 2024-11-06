@@ -1,0 +1,28 @@
+<% if (success_msg.length > 0 || error_msg.length > 0 || error.length > 0) { %>
+  <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+    <div id="toastMessage" class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+      <div class="d-flex">
+        <div class="toast-body">
+          <% if (success_msg.length > 0) { %>
+            <%= success_msg %>
+          <% } %>
+          <% if (error_msg.length > 0) { %>
+            <%= error_msg %>
+          <% } %>
+          <% if (error.length > 0) { %>
+            <%= error %>
+          <% } %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toastEl = document.getElementById('toastMessage');
+      var toast = new bootstrap.Toast(toastEl);
+      toast.show();
+    });
+  </script>
+<% } %>

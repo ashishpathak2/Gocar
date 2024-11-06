@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+</head>
+<body>
+
+    <%- include("../admin_partial/admin_navbar.ejs") -%>
+
+
+    <div class="col-md-10 mt-4 scrollable-large">
+
+      <div class="container">
+
+        <form action="/admin/addproduct" method="post" enctype="multipart/form-data" class="">
+
+          <!-- Row for Car Company -->
+          <div class="row mb-3">
+            <label for="carCompany" class="col-md-3 col-form-label">Car Company</label>
+            <div class="col-md-9">
+              <input type="text" name="carCompany" placeholder="Car company" class="form-control">
+            </div>
+          </div>
+        
+          <!-- Row for Car Name -->
+          <div class="row mb-3">
+            <label for="carName" class="col-md-3 col-form-label">Car Name</label>
+            <div class="col-md-9">
+              <input type="text" name="carName" placeholder="Car name" class="form-control">
+            </div>
+          </div>
+        
+          <!-- Row for Car Price -->
+          <div class="row mb-3">
+            <label for="carPrice" class="col-md-3 col-form-label">Car Price</label>
+            <div class="col-md-9">
+              <input type="text" name="carPrice" placeholder="Car price" class="form-control">
+            </div>
+          </div>
+        
+          <!-- Row for Car Market Price -->
+          <div class="row mb-3">
+            <label for="carMarketPrice" class="col-md-3 col-form-label">Car Market Price</label>
+            <div class="col-md-9">
+              <input type="text" name="carMarketPrice" placeholder="Car market price" class="form-control">
+            </div>
+          </div>
+        
+          <!-- Row for Car City -->
+          <div class="row mb-3">
+            <label for="carCity" class="col-md-3 col-form-label">Car City</label>
+            <div class="col-md-9">
+              <select name="carCity" id="carCity" class="form-select">
+                <option value="">Select City</option>
+                <!-- Add cities options here -->
+              </select>
+            </div>
+          </div>
+        
+          <!-- Car Parked At Section -->
+          <div class="row mb-3">
+            <label class="col-md-3 col-form-label">Car Parked At Detail:</label>
+            <div class="col-md-9">
+              <div class="mb-2 d-flex align-items-center justify-content-between">
+                <label for="building">Building:</label>
+                <input type="text" name="building" class="form-control w-75" placeholder="Building/Appartment/Flat/Floor" required>
+              </div>
+        
+              <div class="mb-2 d-flex align-items-center justify-content-between ">
+                <label for="address">Address:</label>
+                <input type="text" name="address" class="form-control w-75 " placeholder="Full address" required>
+              </div>
+        
+              <div class="mb-2 d-flex align-items-center justify-content-between ">
+                <label for="googleMapLocationUrl">Google Map Location URL:</label>
+                <input type="text" name="googleMapLocationUrl" class=" w-75 form-control" placeholder="Enter url" required>
+              </div>
+        
+              <div class="mb-2 d-flex align-items-center justify-content-between ">
+                <label for="locationManagerPhone">Location Manager Phone:</label>
+                <input type="text" name="locationManagerPhone" class=" w-75 form-control" placeholder="Mobile number" required>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Row for Total KM Driven -->
+          <div class="row mb-3">
+            <label for="totaldriven" class="col-md-3 col-form-label">Total KM Driven:</label>
+            <div class="col-md-9">
+              <input type="number" name="totaldriven" placeholder="Enter total driven" class="form-control">
+            </div>
+          </div>
+        
+          <!-- Row for Owner Count -->
+          <div class="row mb-3">
+            <label for="ownercount" class="col-md-3 col-form-label">Owner Count:</label>
+            <div class="col-md-9">
+              <select name="ownercount" id="ownercount" class="form-select">
+                <option value="">Select Owner Count</option>
+                <option value="1ST OWNER">1ST OWNER</option>
+                <option value="2ND OWNER">2ND OWNER</option>
+                <option value="3RD OWNER">3RD OWNER</option>
+                <option value="4TH OWNER">4TH OWNER</option>
+              </select>
+            </div>
+          </div>
+        
+          <!-- Row for Transmission -->
+          <div class="row mb-3">
+            <label for="transmission" class="col-md-3 col-form-label">Transmission:</label>
+            <div class="col-md-9">
+              <select name="transmission" id="transmission" class="form-select">
+                <option value="">Select Transmission</option>
+                <option value="AUTOMATIC">AUTOMATIC</option>
+                <option value="MANUAL">MANUAL</option>
+              </select>
+            </div>
+          </div>
+        
+          <!-- Row for Fuel Type -->
+          <div class="row mb-3">
+            <label for="fueltype" class="col-md-3 col-form-label">Fuel Type:</label>
+            <div class="col-md-9">
+              <select name="fueltype" id="fueltype" class="form-select">
+                <option value="">Select Fuel Type</option>
+                <option value="PETROL">PETROL</option>
+                <option value="DIESEL">DIESEL</option>
+                <option value="ELECTRIC">ELECTRIC</option>
+                <option value="HYBRID">HYBRID</option>
+              </select>
+            </div>
+          </div>
+        
+          <!-- Row for Main Image -->
+          <div class="row mb-3">
+            <label for="mainimage" class="col-md-3 col-form-label">Add Main Image:</label>
+            <div class="col-md-9">
+              <input type="file" id="mainimage" name="mainImage" class="form-control">
+            </div>
+          </div>
+        
+          <!-- Row for Slider Images -->
+          <div class="row mb-3">
+            <label for="sliderimage" class="col-md-3 col-form-label">Add Slider Images:</label>
+            <div class="col-md-9">
+              <input type="file" id="sliderimage" name="slideImages" class="form-control" multiple>
+            </div>
+          </div>
+        
+          <!-- Row for Service Report (PDF) -->
+          <div class="row mb-3">
+            <label for="serviceReport" class="col-md-3 col-form-label">Upload Service Report (PDF):</label>
+            <div class="col-md-9">
+              <input type="file" name="serviceReport" accept="application/pdf" class="form-control">
+            </div>
+          </div>
+        
+          <!-- Imperfect parts section -->
+          <div class="row mb-3">
+            <label for="imperfectParts" class="col-md-3 col-form-label">Add Imperfect Parts:</label>  
+            <div class="col-md-9">
+              <div id="imperfect-parts-container" class="d-flex flex-column gap-2">
+                <div class="d-flex gap-3 align-items-center">
+                  <input type="file" name="imperfectPartImages[]" class="form-control w-50">
+                  <input type="text" name="imperfectPartNames[]" placeholder="Enter Part Name" class="form-control w-50">
+                </div>
+              </div>
+              <button type="button" id="addImperfectPartBtn" class="btn btn-dark mt-2 py-2 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+                <h6 class="m-0">Add Another Imperfect Part</h6>
+              </button>
+            </div>
+          </div>
+        
+          <!-- Repainted parts section -->
+          <div class="row mb-3">
+            <label for="repairedParts" class="col-md-3 col-form-label">Add Repaired Parts:</label>  
+            <div class="col-md-9">
+              <div id="repaired-parts-container" class="d-flex flex-column gap-2">
+                <div class="d-flex gap-3 align-items-center">
+                  <input type="file" name="repairedPartImages[]" class="form-control w-50">
+                  <input type="text" name="repairedPartNames[]" placeholder="Enter Part Name" class="form-control w-50">
+                </div>
+              </div>
+              <button type="button" id="addRepairedPartBtn" class="btn btn-dark py-2 mt-2 d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+                <h6 class="m-0">Add Another Repaired Part</h6>
+              </button>
+            </div>
+          </div>
+        
+          <!-- Submit button -->
+          <div class="row mb-3">
+            <div class="col-md-9 offset-md-3">
+              <button type="submit" class="btn btn-success justify-content-center d-flex align-items-center gap-3 px-3 py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+                  <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5"/>
+                  <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
+                </svg>
+                <h6 class="m-0">ADD VEHICLE</h6>
+              </button>
+            </div>
+          </div>
+        
+        </form>
+        
+
+
+
+
+
+      </div>
+
+
+        
+        
+       
+      </div>
+    
+    </div>
+
+
+    <script>
+   const stateCapitals = [
+  "Amaravati",      // Andhra Pradesh
+  "Itanagar",       // Arunachal Pradesh
+  "Dispur",         // Assam
+  "Patna",          // Bihar
+  "Raipur",         // Chhattisgarh
+  "Panaji",         // Goa
+  "Gandhinagar",    // Gujarat
+  "Chandigarh",     // Haryana
+  "Shimla",         // Himachal Pradesh
+  "Ranchi",         // Jharkhand
+  "Bengaluru",      // Karnataka
+  "Thiruvananthapuram", // Kerala
+  "Bhopal",         // Madhya Pradesh
+  "Mumbai",         // Maharashtra
+  "Imphal",         // Manipur
+  "Shillong",       // Meghalaya
+  "Aizawl",         // Mizoram
+  "Kohima",         // Nagaland
+  "Bhubaneswar",    // Odisha
+  "Chandigarh",     // Punjab
+  "Jaipur",         // Rajasthan
+  "Gangtok",        // Sikkim
+  "Chennai",        // Tamil Nadu
+  "Hyderabad",      // Telangana
+  "Agartala",       // Tripura
+  "Lucknow",        // Uttar Pradesh
+  "Dehradun",       // Uttarakhand
+  "Kolkata",        // West Bengal
+  "Srinagar",       // Jammu and Kashmir (Summer Capital)
+  "New Delhi"       // National Capital Territory of Delhi
+];
+
+
+const carCitySelect = document.getElementById('carCity');
+
+// Loop through the array and create option elements
+stateCapitals.forEach(state => {
+  const option = document.createElement('option');
+  option.value = state;
+  option.text = state;
+  carCitySelect.appendChild(option);
+});
+
+document.getElementById('addImperfectPartBtn').addEventListener('click', function() {
+  addPartRow('imperfect-parts-container', 'imperfectPartImages[]', 'imperfectPartNames[]');
+});
+
+document.getElementById('addRepairedPartBtn').addEventListener('click', function() {
+  addPartRow('repaired-parts-container', 'repairedPartImages[]', 'repairedPartNames[]');
+});
+
+// Reusable function to add a new part row
+function addPartRow(containerId, imageName, nameName) {
+  const container = document.getElementById(containerId);
+
+  // Create a new row for image and part name
+  const newPartRow = document.createElement('div');
+  newPartRow.classList.add('d-flex', 'gap-3', 'align-items-center');
+
+  // Create new input for image
+  const newImageInput = document.createElement('input');
+  newImageInput.type = 'file';
+  newImageInput.name = imageName;
+  newImageInput.classList.add('form-control', 'w-25');
+
+  // Create new input for part name
+  const newNameInput = document.createElement('input');
+  newNameInput.type = 'text';
+  newNameInput.name = nameName;
+  newNameInput.placeholder = 'Enter Part Name';
+  newNameInput.classList.add('form-control', 'w-50');
+
+  // Append inputs to the new row
+  newPartRow.appendChild(newImageInput);
+  newPartRow.appendChild(newNameInput);
+
+  // Add the new row to the container
+  container.appendChild(newPartRow);
+}
+
+
+
+    </script>
+    
+</body>
+</html>
+
+
+

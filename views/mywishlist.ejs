@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <%- include("navbar.ejs" , { page:"hidelocation"} ) -%>
+    <div class="container mt-5">
+        <h2>Your Wishlisted Cars</h2>
+        <% if (wishlistedCars.length > 0) { %>
+        <div class="row g-4">
+            <% wishlistedCars.forEach((e) => { %>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <a href="/buyusedcar/showcar/<%= e._id %>" class="text-decoration-none nav-link">
+                        <div class="card car-card hover rounded-4 shadow overflow-hidden">
+                            <img src="<% if (e.carImage) { %>data:image/jpeg;base64,<%= e.carImage.toString('base64') %><% } %>" class="card-img-top" alt="Car Image">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= e.carCompany %> <%= e.carName %>
+                                </h5>
+                                <p class="card-text fw-bold customFs text-muted">
+                                    <%= e.carDftDetail[0] %> KM - <%= e.carDftDetail[1] %> - <%= e.carDftDetail[2] %>
+                                </p>
+                                <h4 class="card-price fw-bold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                        <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
+                                    </svg><%= formatPrice(e.carPrice) %>
+                                </h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+        <% } else { %>
+        <div class="alert alert-warning mt-4" role="alert">
+            No wishlisted car available at the moment.
+        </div>
+        <% } %>
+    </div>
+    
+    <%- include("footer.ejs") -%>
+    <% function formatPrice(price) { let lakhPrice=price / 100000; return `${lakhPrice.toFixed(2)} Lakh`; } %>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom customshadow">
+    <div class="container p-1">
+      <!-- Include flash messages if necessary -->
+      <%- include('partials/flashmessage') %>
+  
+      <!-- Logo -->
+      <a href="/" class="navbar-brand">
+        <img class="m-0" style="width: 120px;" src="/images/images-removebg-preview.png" alt="">
+      </a>
+  
+      <!-- Toggler button for mobile view -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Navbar content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
+  
+          <!-- Location dropdown -->
+          <% if (page !== "hidelocation") { %>
+          <li class="nav-item">
+            <a type="button" onclick="handleArrow()" class="d-flex align-items-center gap-2 bg-light rounded-1 p-2 nav-link text-black mx-4"
+              data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+              </svg>
+              <h6 class="m-0 text-center"><%= cityName ? cityName : "Location" %></h6>
+              <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+              </svg>
+            </a>
+          </li>
+          <% } %>
+  
+          <!-- Navigation Links -->
+          <div class="d-flex flex-wrap align-items-center gap-3 ms-lg-5">
+            <li class="nav-item navmouseover <%= activePage === 'buyusedcar' ? "activenavlink" : null %>">
+              <a class="nav-link text-black" href="/buyusedcar"><h6>Buy used cars</h6></a>
+            </li>
+            <li class="nav-item navmouseover <%= activePage === 'sellcar' ? "activenavlink" : null %>">
+              <a class="nav-link text-black" href="/sellcar"><h6>Sell cars</h6></a>
+            </li>
+          </div>
+        </ul>
+  
+        <!-- User dropdown and account links -->
+        <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center gap-2">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-black d-flex align-items-center gap-2" href="#" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+              </svg>
+              <div>
+                <h6 class="mb-1 custonFs">Hello, <%= User ? User : "Sign in" %></h6>
+                Account
+              </div>
+            </a>
+            <ul class="dropdown-menu text-center p-2" aria-labelledby="navbarDropdown">
+              <% if (!User) { %>
+              <li class="p-1">
+                <a type="button" class="btn btn-warning row" data-bs-toggle="modal" data-bs-target="#newModal">
+                  LOGIN/SIGN UP
+                </a>
+              </li>
+              <% } else { %>
+              <li class="p-1">
+                <a class="dropdown-item d-flex align-items-center gap-2" href="/users/mybookings">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+                    <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+                  </svg>
+                  <p class="m-0">My Bookings</p>
+                </a>
+              </li>
+              <li class="p-1">
+                <a class="dropdown-item d-flex align-items-center gap-2" href="/users/mywishlist">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                  </svg>
+                  <p class="m-0">My Wishlist</p>
+                </a>
+              </li>
+              <li class="p-1">
+                <a class="dropdown-item d-flex align-items-center gap-2" href="/users/logout">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                  </svg>
+                  <p class="m-0">Logout</p>
+                </a>
+              </li>
+              <% } %>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  
+
+  <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered ">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header ">
+          <h5 class="modal-title" id="exampleModalLabel">Location</h5>
+          <button type="button" class="btn-close" onclick="handleArrowClose()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body  ">
+          <div class="row mb-2">
+            <div class="col-12 d-flex justify-content-center gap-3 text-center flex-wrap">
+              <div class="btn-group ">
+                <button type="button" class="btn px-5 btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Select Your City
+                </button>
+                <ul class="dropdown-menu dropdown-menu-lg  w-100 p-2 custom-scroll">
+                  <li><a class="cityName dropdown-item" onclick="changelocationName(this)"
+                    href="/locationName?city=Kolkata&page=<%= page %>">Kolkata</a></li>
+                <li><a class="cityName dropdown-item" onclick="changelocationName(this)"
+                    href="/locationName?city=New%20Delhi&page=<%= page %>">New Delhi</a></li>
+                <li><a class="cityName dropdown-item" onclick="changelocationName(this)"
+                    href="/locationName?city=Banglore&page=<%= page %>">Banglore</a></li>
+                <li><a class="cityName dropdown-item" onclick="changelocationName(this)"
+                    href="/locationName?city=Mumbai&page=<%= page %>">Mumbai</a></li>
+                <li><a class="cityName dropdown-item" onclick="changelocationName(this)"
+                    href="/locationName?city=Hyderabad&page=<%= page %>">Hyderabad</a></li>
+                </ul>
+              </div>
+              <form action="/locationLangLong" method="post" id="locationForm">
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="longitude" id="longitude">
+            
+                <button type="button" class="btn btn-warning px-4" id="locationButton">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-crosshair" viewBox="0 0 16 16">
+                    <path d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                  </svg> Use Current Location
+                </button>
+            </form>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="px-2 px-sm-4 py-3 row g-4">
+            <h6>Popular cities</h6>
+  
+            <div class="container mt-4">
+              <div id="formContainer" class=" d-flex flex-column flex-md-row gap-3 gap-md-5 flex-wrap justify-content-center justify-content-md-start">
+                <!-- Forms will be dynamically inserted here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content rounded-5 overflow-hidden">
+        <div class="modal-body p-0 row">
+          <!-- Image Column -->
+          <div class="col-12 col-md-6 p-0 d-none d-lg-block">
+            <img class="img-fluid w-100 h-100" src="https://cdn.pixabay.com/photo/2020/09/06/07/37/car-5548242_1280.jpg" alt="">
+          </div>
+  
+          <!-- Form Column -->
+          <div class="col-12 col-md-6 d-flex align-items-center p-2">
+            <form id="accountForm" class="form-container w-100" action="/users/signup" method="post">
+              <div class="text-end m-2">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+  
+              <h3 class="heading text-start">SignUp</h3>
+              <div class="divider m-0"></div>
+              <input type="text" placeholder="Name" name="name" class="nameFeild w-100 mb-3" required>
+              <input type="email" placeholder="Email" name="email" class="w-100 mb-3" required>
+              <input type="password" placeholder="Password" name="password" class="w-100 mb-3" required>
+              <a href="/users/forgetpassword" class="forgetpassword text-end text-decoration-none d-none">Forgot Password?</a>
+              <input type="hidden" name="page" value="<%= page %>">
+              <button class="heading btn btn-warning p-3 rounded-5 w-100 " type="submit">Submit</button>
+  
+              <div class="d-flex flex-column gap-1">
+                <p class="formText d-flex align-items-center justify-content-center p-0 m-0">
+                  Already Registered?
+                  <button type="button" onclick="hideNamefeild(this)" class="btn btn-link text-decoration-none p-0">LOGIN</button>
+                </p>
+                <p class="text-center p-0 mb-2 m-0">OR</p>
+                <a class="nav-link border border-dark rounded-5 p-3 d-flex align-items-center justify-content-center gap-2"
+                   href="https://gocars.site/users/auth">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                    <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+                  </svg>
+                  <p class="m-0">Continue with Google</p>
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/javascripts/main.js"></script>
+
+  <script>
+    // Array of objects with image URLs and location names
+    const locations = [
+      {
+        imgSrc: 'https://deih43ym53wif.cloudfront.net/small_Rajpath-delhi-shutterstock_1195751923.jpg_7647e1aad2.jpg',
+        locationName: 'New Delhi'
+      },
+      {
+        imgSrc: 'https://cdn.britannica.com/91/110191-050-7BCFD56B/Victoria-Memorial-Hall-Kolkata-India.jpg',
+        locationName: 'Kolkata'
+      },
+      {
+        imgSrc: 'https://i.natgeofe.com/n/41769731-51c3-445d-85c7-d9668ecf3ba0/SleepMumbai3.jpg?w=1280&h=853',
+        locationName: 'Mumbai'
+      },
+      {
+        imgSrc: 'https://i.kinja-img.com/image/upload/c_fill,h_900,q_60,w_1600/1432fedb88c0d1cc56f4c496a80f251c.jpg',
+        locationName: 'Banglore'
+      },
+      {
+        imgSrc: 'https://lp-cms-production.imgix.net/2019-06/GettyImages-171676147_full.jpg?fit=crop&ar=1%3A1&w=1200&auto=format&q=75',
+        locationName: 'Hyderabad'
+      },
+      {
+        imgSrc: 'https://cdn.abhibus.com/2024/02/Things-to-Do-in-Lucknow.jpg',
+        locationName: 'Lucknow'
+      },
+      {
+        imgSrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuDD8CIjBDuVukV24jBDSDnW6-DUu3qrzpeQ&s',
+        locationName: 'Jaipur'
+      },
+      
+      
+      // Add more locations as needed
+    ];
+
+    const formContainer = document.getElementById('formContainer');
+
+    // Function to render forms dynamically
+    function renderForms() {
+      locations.forEach(location => {
+        const form = document.createElement('form');
+        form.action = '/locationName';
+        form.method = 'post';
+
+        form.innerHTML = `
+          <button onclick="Onchecked(this)" class="border-0 bg-transparent p-0" type="submit">
+            <div class="card hover custom-card border-dark rounded-4 overflow-hidden">
+              <img src="${location.imgSrc}" class="card-img-top img-fluid" alt="${location.locationName}">
+              <div class="card-body">
+                <input type="hidden" name="page" value="<%= page %>">
+                <input type="hidden" value="${location.locationName}" name="locationName">
+                <p class="text-center mb-0 locationName">${location.locationName}</p>
+              </div>
+            </div>
+          </button>
+        `;
+
+        formContainer.appendChild(form);
+      });
+    }
+
+    // Call the function to render the forms
+    renderForms();
+
+  // Get the form and button elements
+  const form = document.getElementById('locationForm');
+  const button = document.getElementById('locationButton');
+
+  // Add an event listener to the button's click event
+  button.addEventListener('click', function(event) {
+    // Prevent the default form action
+    event.preventDefault();
+
+    // Check if geolocation is available
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // Set the hidden input fields with the latitude and longitude
+        document.getElementById('latitude').value = position.coords.latitude;
+        document.getElementById('longitude').value = position.coords.longitude;
+
+        console.log("Location retrieved: ", position.coords.latitude, position.coords.longitude);
+
+        // After setting the latitude and longitude, submit the form
+        form.submit();
+      }, (error) => {
+        console.error("Error retrieving location:", error);
+        alert("Unable to retrieve location. Please enable location services.");
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

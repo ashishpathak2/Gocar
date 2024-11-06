@@ -1,0 +1,285 @@
+.custom-card {
+    width: 8rem;  /* Adjust width as needed */
+    height: 8rem; /* Adjust height as needed */
+  }
+  .custom-card img {
+    height: 100px; /* Adjust image height as needed */
+  
+  }
+
+  .hover{
+    transition: transform 0.3s ease-in-out; /* Smooth scaling */
+    cursor: pointer;
+    border-radius: 1px;
+
+
+  }
+.hover:hover{
+    transform: scale(1.050); 
+
+}
+
+.navmouseover{
+  transition:0.1s ease-in-out;
+  &&:hover{
+   border-bottom: 0.3rem solid rgb(193, 193, 31);
+   border-radius: 2px;  
+   
+  }
+}
+
+.activenavlink{
+  border-bottom: 0.3rem solid rgb(193, 193, 31);
+  border-radius: 2px;  
+}
+
+.divider{
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 220, 220, 0.9);
+  margin:auto;
+  
+}
+
+.navigationbar{
+  position: sticky;
+}
+
+.custom-scroll {
+  max-height: 7rem; /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
+
+.heading{
+  letter-spacing: 0.2rem;
+  font-size: 2rem;
+}
+
+#accountForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 2rem;
+  height: 100%;
+  
+}
+
+
+#accountForm input{
+  border-radius: 5px;
+  padding: 0.9rem;
+  border: none;
+  outline: none;
+  box-shadow: rgba(33, 35, 38, 0.188) 0px 10px 10px -10px;
+}
+
+.form-container {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.form-container.hide {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+
+
+.custonFs{
+  font-size:smaller;
+}
+
+.customfs-2{
+  font-size: small;
+}
+
+.customFs-3{
+  font-size: x-small;
+}
+
+.customFw{
+  font-weight: 500;
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+.hero-img{
+  height: 86vh;
+  width: 100%;
+  
+}
+
+.hero-img img{
+  height: 100%;
+  width: 100%;
+  object-fit:cover;
+}
+
+.over-img{
+top: 1rem;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; */
+}
+/* .cars-brand img{
+  height: 3rem;
+  width: 3rem;
+  object-fit: contain;
+} */
+
+input:focus {
+  outline: none;
+}
+
+.transitions{
+  transition: 0.3s ease-in;
+}
+
+.ph-fs input::placeholder{
+  font-size:small;
+  
+}
+.scrollable-small{
+  max-height: 200px; /* Adjust the height as needed */
+  overflow-y: auto;  /* Enable vertical scroll */
+  
+}
+.scrollable-large {
+  max-height: 75vh; /* Adjust the height as needed */
+  overflow-y: auto;  /* Enable vertical scroll */
+  
+}
+
+
+
+.scrollable-small::-webkit-scrollbar,
+.scrollable-large::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.scrollable-small::-webkit-scrollbar-track,
+.scrollable-large::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+  border-radius: 10px; /* Round corners of the track */
+}
+
+.scrollable-small::-webkit-scrollbar-thumb,
+.scrollable-large::-webkit-scrollbar-thumb {
+  background-color: #000000; /* Color of the scrollbar handle */
+  border-radius: 10px; /* Round corners of the handle */
+  border: 2px solid #f1f1f1; /* Space between handle and track */
+}
+
+.scrollable-small::-webkit-scrollbar-thumb:hover,
+.scrollable-large::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color when hovering over the scrollbar */
+  
+}
+
+.car-card {
+  width: 300px;
+}
+
+.col-gap{
+column-gap:5.3rem;
+}
+
+@media (min-width: 992px) {
+  .lg-gap {
+    gap: 10rem; /* Adjust the gap size as needed */
+  }
+}
+
+@media (min-width: 1200px) {
+  .xl-gap {
+    gap: 5rem; /* Adjust the gap size as needed */
+  }
+}
+.w-30{
+  width: 170px;
+}
+
+.img-selector{
+  scroll-behavior: smooth;
+}
+
+.svg-container {
+  pointer-events: none; /* Disable pointer events on the entire container */
+  z-index: 1; /* Ensure SVGs are above the images */
+}
+
+.svg-container svg {
+  pointer-events: auto; /* Re-enable pointer events only for the SVGs */
+  transition: 0.3s ease-in-out;
+  &&:hover{
+    scale: 1.8;
+    
+  }
+}
+
+.object-fit{
+  object-fit:contain;
+}
+
+.customshadow{
+  box-shadow: rgba(0, 0, 0, 0.055) 0px 3px 5px;}
+
+
+
+  @media (min-width: 768px) { /* Adjust for `md` breakpoint and above */
+    .h-md-25 {
+        height: 25%;
+    }
+}
+
+.footer-link{
+  &&:hover{
+    border-bottom: 1px solid blue;
+  }
+}
+
+
+.custom-shadow {
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.121); /* Right-side shadow */
+}
+
+.admin-hover{
+  &&:hover{
+    background-color: rgb(157, 59, 157);
+    color: white;
+  }
+}
+
+.admin-hover-active{
+  background-color: rgb(157, 59, 157);
+
+}
+
+ /* Default styles for the div */
+.imperfectionsId, .RepairedId {
+  transition: background-color 0.3s ease; /* Smooth fade effect */
+  position: relative; /* To properly position the delete button */
+}
+
+/* Hover effect for the div */
+.imperfectionsId:hover, .RepairedId:hover {
+  background-color: rgb(195, 195, 195); /* Light grey fade */
+}
+
+/* Style the delete button */
+.delete-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  opacity: 0; /* Hide the button initially */
+  transition: opacity 0.3s ease; /* Smooth transition for button appearance */
+}
+/* Show the delete button on hover of imperfectionsId or RepairedId */
+.imperfectionsId:hover .delete-btn,
+.RepairedId:hover .delete-btn {
+    opacity: 1; /* Show button on hover */
+}

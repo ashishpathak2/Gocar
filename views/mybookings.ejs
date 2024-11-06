@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include("navbar.ejs", {page:"hidelocation"} ) -%>
+
+    <div class="container">
+        <div class="bookedcarslist d-flex flex-column mt-4 p-4">
+            <h2 class="">Your Bookings</h2>
+            <% if (bookedCars.length > 0) { %>
+                <% bookedCars.forEach(item => { %>
+                    <div class="d-flex flex-column flex-md-row border rounded-4 overflow-hidden bg-light mb-4">
+                        <img class="w-100 w-md-50 img-fluid" 
+                             src="<% if (item.carDetail.carImage) { %>data:image/jpeg;base64,<%= item.carDetail.carImage.toString('base64') %><% } %>" 
+                             alt="Car Image"
+                             style="max-height: 270px; object-fit:cover;">
+                        <div class="p-4 w-100 d-flex flex-column justify-content-around">
+                            <div class="d-flex flex-column flex-md-row justify-content-between">
+                                <h4 class="card-title mb-2 mb-md-0">
+                                    <%= item.carDetail.carCompany %> <%= item.carDetail.carName %>
+                                </h4>
+                                <div class="divider w-25 bg-dark m-auto d-none d-md-block"></div>
+                                <h4 class="card-price mb-2 mb-md-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                        <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
+                                    </svg><%= formatPrice(item.carDetail.carPrice) %>
+                                </h4>
+                            </div>
+                            <div class="d-flex flex-column flex-md-row justify-content-between mt-2">
+                                <div class="d-flex flex-column gap-2">
+                                    <p class="custonFs m-0">Booking Id: <strong><%= item._doc.bookingId %></strong></p>
+                                    <p class="custonFs m-0">Address: <strong><%= item._doc.address %></strong></p>
+                                    <p class="custonFs m-0">Date: <strong><%= item._doc.date %></strong></p>
+                                    <p class="custonFs m-0">Time-Slot: <strong><%= item._doc.time %></strong></p>
+                                </div>
+                                <div class="bg-dark align-self-end rounded-5 px-4 py-1 text-bold text-white">
+                                    Status: <%= item.status %> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="alert alert-warning" role="alert">
+                    No bookings available at the moment.
+                </div>
+            <% } %>
+        </div>
+    </div>
+    
+    
+    <%- include("footer.ejs") -%>
+
+        <% function formatPrice(price) { let lakhPrice=price / 100000; return `${lakhPrice.toFixed(2)} Lakh`; } %>
+
+</body>
+
+</html>

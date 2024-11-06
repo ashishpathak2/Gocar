@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gocars</title>
+
+  <style>
+    /* Ensure logos are contained within their containers */
+    .cars-brand img {
+      height: 2rem;
+      /* Fixed height for all screens */
+      width: 3rem;
+      /* Fixed width for all screens */
+      object-fit: contain;
+      /* Ensure logos fit within the box */
+    }
+
+    /* Adjust logo size for different screen sizes */
+    .logo-img {
+      max-width: 3rem;
+      /* Default size for large screens */
+      height: auto;
+      /* Maintain aspect ratio */
+    }
+
+    @media (max-width: 576px) {
+      .logo-img {
+        max-width: 2rem;
+        /* Smaller size for extra small screens */
+      }
+    }
+
+    @media (min-width: 576px) and (max-width: 767px) {
+      .logo-img {
+        max-width: 2.5rem;
+        /* Slightly larger size for small screens */
+      }
+    }
+
+    /* Adjust width for .over-img */
+    .over-img {
+      width: 100%;
+      /* Default for small screens */
+      max-width: 100%;
+      /* Prevents exceeding container width */
+    }
+
+    @media (min-width: 768px) {
+      .over-img {
+        width: 75%;
+        /* Width for medium and larger screens */
+      }
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <%- include("navbar.ejs" , { page : "/" } ) -%>
+
+    <main class="position-relative">
+      <div class="hero-img">
+        <!-- Large image for medium and larger screens -->
+        <img src="https://media.wired.com/photos/5e162edc7ecdd1000834110d/master/pass/Transpo_Ta11.jpg"
+          class="img-fluid w-100 d-none d-md-block" alt="Hero Image">
+
+        <!-- Smaller image for small screens -->
+        <img src="https://media.wired.com/photos/5e162edc7ecdd1000834110d/master/pass/Transpo_Ta11.jpg"
+          class="img-fluid w-100 d-md-none" style="height: 300px; object-fit: cover;" alt="Hero Image Small">
+      </div>
+
+
+      <div class="over-img rounded-5 p-2 z-2 bg-transparent position-absolute start-50 translate-middle-x">
+        <div class="d-flex border border-2 p-2 bg-light align-items-center gap-1 rounded-5">
+          <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+            class="bi bi-search " viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+          <form action="/buyusedcar" class="w-100">
+            <input type="search" name="search" placeholder="Search cars by name"
+              class="p-2 bg-light w-100 rounded-5 border-0" id="searchFilter" list="carSuggestions">
+            <datalist id="carSuggestions"></datalist>
+          </form>
+        </div>
+
+        <div class="cars-brand d-flex flex-wrap gap-2 gap-md-4 gap-lg-5 justify-content-center mt-3 mt-md-4">
+          <img src="images/logo1.png" alt="Logo 1" class="img-fluid logo-img">
+          <img src="images/logo2.png" alt="Logo 2" class="img-fluid logo-img">
+          <img src="images/logo5.png" alt="Kia Logo" class="img-fluid logo-img">
+          <img src="images/logo6.png" alt="Mahindra Logo" class="img-fluid logo-img">
+          <img src="images/logo3.png" alt="Logo 3" class="img-fluid logo-img d-none d-lg-block">
+          <img src="images/logo4.png" alt="Logo 4" class="img-fluid logo-img">
+          <img src="https://i.pinimg.com/originals/5b/ac/94/5bac942d02e70ce67498bf2ff04efe97.png" alt=""
+            class="img-fluid logo-img">
+          <img src="https://cdn.pixabay.com/photo/2016/08/15/18/18/honda-1596081_1280.png" alt="Honda Logo"
+            class="img-fluid logo-img">
+        </div>
+      </div>    
+
+    </main>
+
+    <%- include("footer.ejs") -%>
+
+
+
+
+
+
+
+
+      <script>
+        document.getElementById('searchFilter').addEventListener('input', async function () {
+          const query = this.value.toLowerCase();
+          const dataList = document.getElementById('carSuggestions');
+
+          if (query.length < 2) {
+            dataList.innerHTML = ''; // Clear the list if query is too short
+            return;
+          }
+
+          try {
+            const response = await fetch(`/car-suggestions?term=${encodeURIComponent(query)}`);
+            const suggestions = await response.json();
+
+            // Clear existing suggestions
+            dataList.innerHTML = '';
+
+            // Populate datalist with new suggestions
+            suggestions.forEach(suggestion => {
+              const option = document.createElement('option');
+              option.value = suggestion; // Directly use the suggestion string
+              dataList.appendChild(option);
+            });
+          } catch (error) {
+            console.error("Error fetching suggestions:", error);
+          }
+        });
+      </script>
+
+
+
+</body>
+
+</html>

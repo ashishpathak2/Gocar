@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gocars</title>
+</head>
+
+<body >
+    <%- include("navbar.ejs",{ page : "/buyusedcar" }) -%>
+
+        <div class="container px-3 px-md-0" >
+            <div class="row mt-5" >
+                <!-- Left Column: Budget and Car Brand Filters -->
+                <div class="col-12 col-md-4 col-lg-3 border rounded-2 p-4 scrollable-large">
+                    <form action="/buyusedcar" method="get" class="filterForm">
+                        <div class="BugetRangeFilter">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="my-4 mt-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill me-1" viewBox="0 0 16 16">
+                                    <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                                    <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043z"/>
+                                  </svg>  Budget</h6>
+                                <% if (showReset===true) { %>
+                                    <a type="button" class="nav-link text-primary " onclick="resetFilters()"> <svg
+                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-arrow-counterclockwise  "
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z" />
+                                            <path
+                                                d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466" />
+                                        </svg> Clear Filter</a>
+                                    <% } %>
+
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="border px-4 py-2 rounded-3">100000</span>
+                                <span class="border px-4 py-2 rounded-3" id="budgetValue">
+                                    <%= budget %>
+                                </span>
+                            </div>
+                            <input type="range" id="budgetRange" class="form-range" name="budget" value="<%= budget %>"
+                                step="100000" max="1500000" min="100000" >
+                            <input type="hidden" id="userSetBudget" name="userSetBudget" value="false">
+
+                            <div class="customfs-2 d-flex justify-content-between">
+                                <span>Minimum</span>
+                                <span>Maximum</span>
+                            </div>
+                            <!-- </form> -->
+
+
+                            <h6 class="customfs-2 mt-3">Suggestions</h6>
+                            <div class="price-cards d-flex flex-row flex-wrap gap-2">
+                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 300000 ? 'bg-dark text-white transitions'  : '' %> "
+                                    data-value="300000">Under 3 lakhs</div>
+                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 500000 ? 'bg-dark text-white transitions'  : '' %> "
+                                    data-value="500000">Under 5 lakhs</div>
+                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 800000 ? 'bg-dark text-white transitions'  : '' %> "
+                                    data-value="800000">Under 8 lakhs</div>
+                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 1000000 ? 'bg-dark text-white transitions'  : '' %> "
+                                    data-value="1000000">Under 10 lakhs</div>
+                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 1200000 ? 'bg-dark text-white transitions'  : '' %> "
+                                    data-value="1200000">Under 12 lakhs</div>
+                            </div>
+                        </div>
+
+                        <div class="carbrandFilter">
+                            <h6 class="mt-5 mb-3"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings-fill me-1" viewBox="0 0 16 16">
+  <path d="M15 .5a.5.5 0 0 0-.724-.447l-8 4A.5.5 0 0 0 6 4.5v3.14L.342 9.526A.5.5 0 0 0 0 10v5.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14h1v1.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5zM2 11h1v1H2zm2 0h1v1H4zm-1 2v1H2v-1zm1 0h1v1H4zm9-10v1h-1V3zM8 5h1v1H8zm1 2v1H8V7zM8 9h1v1H8zm2 0h1v1h-1zm-1 2v1H8v-1zm1 0h1v1h-1zm3-2v1h-1V9zm-1 2h1v1h-1zm-2-4h1v1h-1zm3 0v1h-1V7zm-2-2v1h-1V5zm1 0h1v1h-1z"/>
+</svg> Company</h6>
+                            <div class="d-flex border border-1 p-1 align-items-center gap-2 rounded-3">
+                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+
+                                <input type="text" class="w-100 border-0" onkeyup="onSearch(this)"
+                                    placeholder="Search a brand or model">
+
+                            </div>
+
+                            <h6 class="customfs-2 mt-3">All Brands</h6>
+                            <form action="/buyusedcar" method="get" id="carBrandForm">
+                                <div class="car-brands d-flex flex-column gap-2 p-1 scrollable-small ">
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Maruti"
+                                            id="brand1" onclick="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Maruti') ? 'checked' : '' %>>
+                                        <label for="brand1" class="form-check-label">Maruti</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand"
+                                            value="Mahaindra" id="brand2" onchange="submitForm()" <%=queryParams.carbrand
+                                            && queryParams.carbrand.includes('Mahaindra') ? 'checked' : '' %> >
+                                        <label for="brand2" class="form-check-label">Mahaindra</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Ford"
+                                            id="brand3" onchange="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Ford') ? 'checked' : '' %> >
+                                        <label for="brand3" class="form-check-label">Ford</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Tata"
+                                            id="brand4" onchange="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Tata') ? 'checked' : '' %> >
+                                        <label for="brand4" class="form-check-label">Tata</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Hyundai"
+                                            id="brand5" onchange="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Hyundai') ? 'checked' : '' %> >
+                                        <label for="brand5" class="form-check-label">Hyundai</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Jeep"
+                                            id="brand6" onchange="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Jeep') ? 'checked' : '' %> >
+                                        <label for="brand6" class="form-check-label">Jeep</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Datsun"
+                                            id="brand7" onchange="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Datsun') ? 'checked' : '' %> >
+                                        <label for="brand7" class="form-check-label">Datsun</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Nissan"
+                                            id="brand8" onchange="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Nissan') ? 'checked' : '' %> >
+                                        <label for="brand8" class="form-check-label">Nissan</label>
+                                    </div>
+                                    <div class="carBrandName">
+                                        <input class="form-check-input" type="checkbox" name="carbrand" value="Audi"
+                                            id="brand9" onchange="submitForm()" <%=queryParams.carbrand &&
+                                            queryParams.carbrand.includes('Audi') ? 'checked' : '' %> >
+                                        <label for="brand9" class="form-check-label">Audi</label>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                         </div>
+
+                         <!-- Right Column: Top Bar -->
+                         <div class="container mt-5 mt-md-0 ps-0 ps-md-4 col-12 col-md-8 col-lg-9">
+                        <div class="row ">
+                        <!-- Top Bar Content -->
+                        <div class="col-12 d-flex justify-content-between align-items-center">
+                            <h4>
+                                <%= count %> Used cars in <%= cityName %>
+                            </h4>
+                            <h6 class="d-flex gap-2 "> Sort By:
+                                <ul class="navbar-nav mb-2  mb-lg-0">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-primary dropdown-toggle p-0 " href="#"
+                                            id="sortByDropdown" role="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <%= sortBy %>
+                                        </a>
+                                        <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                            <form action="/buyusedcar" method="get" id="sortby">
+                                                <div class="car-brands d-flex flex-column gap-3 p-2 scrollable-small">
+                                                    <div>
+                                                        <input class="form-check-input" type="radio" checked
+                                                            name="sortby" value="Best Match" id="bestMatch"
+                                                            onclick="submitForm()" <%=queryParams.sortby &&
+                                            queryParams.sortby.includes('Best Match') ? 'checked' : '' %>   >
+                                                        <label for="bestMatch" class="form-check-label">Best
+                                                            Match</label>
+                                                    </div>
+                                                    <div>
+                                                        <input class="form-check-input" type="radio" name="sortby"
+                                                            value="Recently Added" id="recentlyAdded"
+                                                            onclick="submitForm()" <%=queryParams.sortby &&
+                                            queryParams.sortby.includes('Recently Added') ? 'checked' : '' %> >
+                                                        <label for="recentlyAdded" class="form-check-label">Recently
+                                                            Added</label>
+                                                    </div>
+
+                                                    <div class="divider"></div>
+
+                                                    <h6 class="m-0">Price:</h6>
+                                                    <div>
+                                                        <input class="form-check-input" type="radio" name="sortby"
+                                                            value="Low To High" id="lowToHigh"
+                                                            onclick="submitForm()" <%=queryParams.sortby &&
+                                            queryParams.sortby.includes('Low To High') ? 'checked' : '' %>  >
+                                                        <label for="lowToHigh" class="form-check-label">Low To
+                                                            High</label>
+                                                    </div>
+                                                    <div>
+                                                        <input class="form-check-input" type="radio" name="sortby"
+                                                            value="High To Low" id="highToLow"
+                                                            onclick="submitForm()" <%=queryParams.sortby &&
+                                            queryParams.sortby.includes('High To Low') ? 'checked' : '' %>  >
+                                                        <label for="highToLow" class="form-check-label">High To
+                                                            Low</label>
+                                                    </div>
+                                                </div>
+                    </form>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </h6>
+                        </div>
+                        </div>
+
+                    <!-- Main Content -->
+                    <div class="row row-cols-1 row-cols-md-2  row-cols-lg-3 gy-5">
+                        <% carInfo.forEach((e)=> { %>
+                          <div class="col">
+                            <a href="/buyusedcar/showcar/<%= e._id %>" class="text-decoration-none nav-link">
+                              <div class="card car-card hover rounded-4 shadow overflow-hidden">
+                                <img src="<% if (e.carImage) { %>data:image/jpeg;base64,<%= e.carImage.toString('base64') %><% } %>" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">
+                                    <%= e.carCompany %> <%= e.carName %>
+                                  </h5>
+                                  <p class="card-text fw-bold custonFs text-muted">
+                                    <%= e.carDftDetail[0] %> KM - <%= e.carDftDetail[1] %> - <%= e.carDftDetail[2] %>
+                                  </p>
+                                  <h4 class="card-price fw-bold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                      fill="currentColor" class="bi bi-currency-rupee"
+                                      viewBox="0 0 16 16">
+                                      <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
+                                    </svg><%= formatPrice(e.carPrice) %>
+                                  </h4>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        <% }) %>
+                      </div>
+                      
+                </div>
+
+
+            </div>
+        </div>
+
+        <%- include("footer.ejs") -%>
+        
+        <script src="/javascripts/buyusedcar.js"></script>
+        <% function formatPrice(price) { let lakhPrice=price / 100000; return `${lakhPrice.toFixed(2)}
+                            Lakh`; } %>
+
+</body>
+
+</html>

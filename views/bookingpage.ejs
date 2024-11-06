@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include("navbar.ejs", {page:""} ) -%>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 col-md-5 d-flex justify-content-center">
+                <div class="card rounded-4 shadow overflow-hidden">
+                    <img src="<% if (carDetail.carImage) { %>data:image/jpeg;base64,<%= carDetail.carImage.toString('base64') %><% } %>"
+                        class="card-img-top" alt="Car Image" style="height: 300px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= carDetail.carCompany %> <%= carDetail.carName %>
+                        </h5>
+                        <h4 class="card-price">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                <path
+                                    d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
+                            </svg>
+                            <%= formatPrice(carDetail.carPrice) %>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-7 d-flex justify-content-center align-items-center">
+                <div class="d-flex flex-column gap-4 w-75">
+                    <h2 class="text-center">Test drive at <%= BookingType === "home" ? "Home" : "Gocar Hub" %></h2>
+                    <form class="d-flex flex-column gap-4" action=<%= BookingType === "home" ? "/create-payment" : "/freebooking" %> method=<%= BookingType === "home" ? "post" : "get"  %> >
+    
+                        <div>
+                            <label for="exampleInputPassword1" class="form-label">Write your full home address</label>
+                            <input type="text" name="address" placeholder="Your address" class="form-control" id="exampleInputPassword1" required>
+                        </div>
+    
+                        <div>
+                            <label class="form-label" for="booking-date">Select Booking Date:</label>
+                            <input class="rounded-1 form-control" type="date" name="date" id="booking-date" required>
+                        </div>
+    
+                        <div>
+                            <label for="booking-time">Select Booking Time:</label>
+                            <select class="rounded-1 form-select" name="time" id="booking-time" required></select>
+                        </div>
+    
+                        <button type="submit" class="btn btn-warning">Confirm Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include("footer.ejs") -%>
+        <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+        
+                <% function formatPrice(price) { let lakhPrice=price / 100000; return `${lakhPrice.toFixed(2)} Lakh`; } %>
+
+        <script>
+            const dateInput = document.getElementById('booking-date');
+            const timeInput = document.getElementById('booking-time');
+
+            // Function to generate time options from 10 AM to 7 PM with 2-hour intervals
+            function populateTimeOptions(startHour = 10) {
+                // Clear existing options
+                timeInput.innerHTML = '';
+
+                // Generate time options from startHour to 7 PM in 2-hour intervals
+                let hasAvailableTime = false;
+                for (let hour = startHour; hour <= 19; hour += 2) {
+                    const timeStr = `${String(hour).padStart(2, '0')}:00`;
+                    const option = document.createElement('option');
+                    option.value = timeStr;
+                    option.textContent = timeStr;
+                    timeInput.appendChild(option);
+                    hasAvailableTime = true;
+                }
+
+                // If no available time slots, show "No time slots available"
+                if (!hasAvailableTime) {
+                    const option = document.createElement('option');
+                    option.textContent = "No time slots available";
+                    option.disabled = true;
+                    timeInput.appendChild(option);
+                }
+            }
+
+            // Function to populate time options based on whether today or a future date is selected
+            function handleTimeOptionsForSelectedDate() {
+                const now = new Date();
+                const selectedDate = new Date(dateInput.value);
+
+                // If the selected date is today, calculate the start hour to skip past times
+                if (selectedDate.toDateString() === now.toDateString()) {
+                    const currentHour = now.getHours();
+                    const startHour = Math.max(10, Math.ceil((currentHour + 2) / 2) * 2); // Next 2-hour interval after 2 hours
+
+                    if (startHour > 19) {
+                        // If all slots have passed, show "No time slots available"
+                        timeInput.innerHTML = '';
+                        const option = document.createElement('option');
+                        option.textContent = "No time slots available";
+                        option.disabled = true;
+                        timeInput.appendChild(option);
+                    } else {
+                        populateTimeOptions(startHour);
+                    }
+                } else {
+                    populateTimeOptions(10); // Future dates start from 10 AM
+                }
+            }
+
+            // Set up date input restrictions (current date + next 3 days)
+            function setupDateInput() {
+                const today = new Date();
+                const todayStr = today.toISOString().split('T')[0]; // Format as yyyy-mm-dd
+
+                const maxDate = new Date();
+                maxDate.setDate(today.getDate() + 3); // Set max date to 3 days from today
+                const maxDateStr = maxDate.toISOString().split('T')[0];
+
+                dateInput.min = todayStr;
+                dateInput.max = maxDateStr;
+            }
+
+            // Update time options when a new date is selected
+            dateInput.addEventListener('change', handleTimeOptionsForSelectedDate);
+
+            // Initial setup
+            setupDateInput();
+            handleTimeOptionsForSelectedDate(); // Populate time options for today when the page loads
+
+
+
+//             const paymentButton = document.getElementById('pay-button');
+
+// paymentButton.addEventListener('click', function(e) {
+//     e.preventDefault();
+
+//     // Send a request to create an order
+//     fetch('/create-order', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ amount: 1 })  // Amount in rupees
+//     })
+//     .then(response => response.json())
+//     .then(order => {
+//         const options = {
+//             key: "rzp_test_T7V7Cya2vC3gR6", // Replace with your Razorpay key ID
+//             amount: order.amount,  // Amount in paise
+//             currency: order.currency,
+//             name: 'GOCAR',
+//             description: 'Booking for car test drive at home',
+//             order_id: order.id,  // Razorpay order ID
+//             handler: function (response) {
+//                 // After the payment is completed
+//                 fetch('/verify', {
+//                     method: 'POST',
+//                     headers: { 'Content-Type': 'application/json' },
+//                     body: JSON.stringify({
+//                         razorpay_order_id: response.razorpay_order_id,
+//                         razorpay_payment_id: response.razorpay_payment_id,
+//                         razorpay_signature: response.razorpay_signature
+//                     })
+//                 })
+//                 .then(res => res.json())
+//                 .then(data => {
+//                     if (data.status === 'success') {
+//                         alert('Payment successful!');
+//                         // Redirect to confirmation page or display success message
+//                     } else {
+//                         alert('Payment verification failed');
+//                     }
+//                 })
+//                 .catch(error => console.error('Error verifying payment:', error));
+//             },
+//             prefill: {
+//                 name: "John Doe",
+//                 email: "john.doe@example.com",
+//                 contact: "9999999999"
+//             },
+//             theme: {
+//                 color: "#3399cc"
+//             }
+//         };
+//         const razorpay = new Razorpay(options);
+//         razorpay.open();
+//     })
+//     .catch(error => console.error('Error creating order:', error));
+// });
+
+
+
+
+
+
+
+
+
+
+
+        </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .about-section {
+            padding: 4rem 0;
+        }
+        .about-content h5 {
+            font-weight: bold;
+        }
+        .about-content p {
+            margin-bottom: 1rem;
+        }
+        .mission-statement {
+            font-style: italic;
+            background-color: #e9ecef;
+            padding: 1rem;
+            border-left: 5px solid #007bff;
+            margin-bottom: 2rem;
+        }
+        .team-member {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .team-member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .team-member h5 {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <%- include("navbar.ejs",{ page : "hidelocation" }) -%>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-md-8">
+                    <h2 class="display-5">About Us</h2>
+                    <p class="lead">Learn more about our mission, our story, and the people behind our success.</p>
+                </div>
+            </div>
+            <div class="row about-content">
+                <!-- About Company -->
+                <div class="col-md-6 mb-4">
+                    <h5>Our Story</h5>
+                    <p>Founded in 2024, GoCars has grown from a small startup to a trusted name in the used car market in India, with a mission to make buying and selling cars easier and more transparent. Our journey began with a passion for innovation and a commitment to excellence, addressing the challenges faced by customers in the automotive space. We created a platform that connects buyers and sellers seamlessly, ensuring a hassle-free experience and fair deals. We’re proud to simplify the used car market, making it accessible for everyone.</p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h5>What We Do</h5>
+                    <p>At GoCars, we specialize in facilitating the buying and selling of used cars across India. Our platform connects sellers with potential buyers, ensuring a seamless and transparent process. We offer comprehensive vehicle listings, detailed information, and customer support to help users make informed decisions. By leveraging our extensive network, we aim to provide the best deals for both buyers and sellers. GoCars is dedicated to transforming the used car experience with trust and reliability.</p>
+                </div>
+            </div>
+
+            <!-- Mission Statement -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="mission-statement">
+                        <h5>Our Mission</h5>
+                        <p>"Our Mission is to simplify the used car buying and selling process in India by providing a transparent, reliable platform that ensures fair and hassle-free transactions for everyone."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="row justify-content-center text-center">
+                <div class="col-md-12 mb-5">
+                    <h5>Meet Our Team</h5>
+                </div>
+
+                <div class="col-md-4 team-member">
+                    <img src="/images/Me-removebg.png" style="object-fit: cover" alt="Team Member 1">
+                    <h5>Ashish Pathak</h5>
+                    <p>CEO & Founder</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-custom">Learn More</button>
+            </div>
+        </div>
+    </section>
+    <%- include("footer.ejs") -%>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

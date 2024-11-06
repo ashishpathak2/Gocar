@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+<body>
+
+    <%- include("navbar.ejs" , { page : `/buyusedcar/showcar/${carId}`} ) -%>
+
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-7 d-flex flex-column">
+
+                    <!-- Carousel -->
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded-4">
+                            <div class="carousel-item active">
+                                <img src="<% if (car.carImage) { %>data:image/jpeg;base64,<%= car.carImage.toString('base64') %><% } %>"
+                                    class="d-block w-100" alt="...">
+                            </div>
+                            <% car.sliderImage.forEach((carImg, index)=> { %>
+                                <div class="carousel-item">
+                                    <img src="<% if (carImg.imageBuffer) { %>data:image/jpeg;base64,<%= carImg.imageBuffer.toString('base64') %><% } %>"
+                                        class="d-block w-100" alt="...">
+                                </div>
+                                <% }) %>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <!-- Image Selector -->
+                    <div class="mt-4 position-relative">
+                        <div class="img-selector d-flex gap-2 overflow-hidden rounded-4">
+                            <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                src="<% if (car.carImage) { %>data:image/jpeg;base64,<%= car.carImage.toString('base64') %><% } %>"
+                                class="w-25 h-auto rounded-4 cursor" alt="...">
+                            <% car.sliderImage.forEach((carImg, index)=> { %>
+                                <img data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index + 1 %>"
+                                    src="<% if (carImg.imageBuffer) { %>data:image/jpeg;base64,<%= carImg.imageBuffer.toString('base64') %><% } %>"
+                                    class="w-25 h-auto rounded-4 cursor" alt="...">
+                                <% }) %>
+                        </div>
+
+                        <!-- SVGs positioned over images -->
+                        <div
+                            class="svg-container d-flex text-white justify-content-between position-absolute top-50 start-0 end-0 translate-middle-y">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-chevron-left svg-hover cursor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-chevron-right svg-hover cursor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mt-4 mt-md-0">
+                    <div class="border px-3 py-4 rounded-4">
+                        <h2 class="text-break ms-3">
+                            <%= car.carCompany %>
+                                <%= car.carName %>
+                        </h2>
+                        <div class="d-flex flex-wrap fw-bold gap-5 ms-3">
+                            <p class="mb-0">
+                                <%= car.carDftDetail[0] %> KM
+                            </p>
+                            <p class="mb-0">
+                                <%= car.carDftDetail[1] %>
+                            </p>
+                            <p class="mb-0">
+                                <%= car.carDftDetail[2] %>
+                            </p>
+                            <p class="mb-0">
+                                <%= car.carDftDetail[3] || "AUTOMATIC" %>
+                            </p>
+                        </div>
+                        <div class="mt-4 ms-3">
+                            <p class="custonFs fw-light mb-1 text-primary d-flex align-items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+                                    class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                </svg>
+                                Parked at: <a class="customFw cursor m-1 text-decoration-none" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal3">
+                                    <%= car.carParkedAt.building %>, <%= car.city %>
+                                </a>
+                            </p>
+
+                            <p class="custonFs fw-light mb-1 text-center text-primary d-flex align-items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+                                    class="bi bi-file-earmark-bar-graph-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m.5 10v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5m-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5z" />
+                                </svg>
+                                View <a class="customFw m-1 cursor text-decoration-none" data-bs-toggle="modal"
+                                    data-bs-target="#inspectionReport">Inspection Report ></a>
+                            </p>
+
+                            <p class="custonFs fw-light text-primary d-flex align-items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+                                    class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                    <path
+                                        d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                                </svg>
+                                Download <a class="customFw m-1 cursor text-decoration-none" data-bs-toggle="modal"
+                                    data-bs-target="#serviceReport ">Service History Report ></a>
+                            </p>
+                        </div>
+                        <div class="divider mt-5"></div>
+
+                        <!-- Price and Wishlist Section -->
+                        <div class="d-flex flex-column align-items-end me-3 mt-5">
+                            <div class="d-flex gap-2">
+                                <h6 class="m-auto rounded-4 px-2 py-1 bg-warning">
+                                    <%= formatPrice(totalOfferPrice) %> off
+                                </h6>
+                                <h2 class="fw-bold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                        <path
+                                            d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
+                                    </svg>
+                                    <%= formatPrice(car.carPrice) %>
+                                </h2>
+                            </div>
+                            <h6 class="fw-bold text-decoration-line-through">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+                                    class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
+                                </svg>
+                                <%= formatPrice(car.carMarketPrice) %>
+                            </h6>
+                        </div>
+
+                        <!-- Wishlist and Test Drive Buttons -->
+                        <div class="d-flex mt-2 align-items-center gap-4 flex-wrap">
+                            <% if (!isWishlistedCar) { %>
+                                <form action="/users/addtowishlist" method="post" class="me-2">
+                                    <input type="hidden" name="carId" value="<%= car._id %>">
+                                    <button type="submit" class="btn border-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                                            fill="currentColor" class="bi bi-heart" viewBox="0 0 17 17">
+                                            <path
+                                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                                        </svg>
+                                    </button>
+                                </form>
+                                <% } else { %>
+                                    <form action="/users/removefromwishlist" method="post" class="me-2">
+                                        <input type="hidden" name="carId" value="<%= car._id %>">
+                                        <button type="submit" class="btn border-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                                                fill="currentColor" class="bi bi-heart-fill text-warning"
+                                                viewBox="0 0 17 17">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    <% } %>
+                                        <button type="button" class="btn btn-warning w-100 py-3 rounded-5 fw-bold"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                                            BOOK FREE TEST DRIVE
+                                        </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal 1 -->
+                    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content rounded-4">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Car Parked At</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div
+                                                class="col-md-6 mb-3 mb-md-0 align-items-center justify-content-center d-flex">
+                                                <img class="w-50 rounded-4 border"
+                                                    src="https://media.licdn.com/dms/image/D4D12AQE0x_dsQsSiuA/article-cover_image-shrink_720_1280/0/1696923887331?e=2147483647&v=beta&t=NxDTm6YrhZCZByh2rO5b3GguYNmM9p6hYjnjmhvs29w"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Gocar Hub, <%= car.carParkedAt.building %>, <%= car.city %>
+                                                </h6>
+                                                <p class="custonFs">Time: <strong>10:AM To 7:00PM</strong></p>
+                                                <p class="custonFs m-0">
+                                                    <%= car.carParkedAt.address %>
+                                                </p>
+                                                <a href="<%= car.carParkedAt.googleMapLocationUrl || 'https://www.google.com/maps' %>"
+                                                    class="nav-link text-primary customFw" target="_blank"
+                                                    rel="noopener noreferrer">
+                                                    <p class="custonFs">LOCATE HUB ></p>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                        <div class="d-flex py-3 gap-2 justify-content-center align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                            </svg>
+                                            <h6 class="m-0">CALL <%= car.carParkedAt.locationManagerPhone
+                                                    || '9015077798' %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal 2 -->
+                    <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Where would you like to test drive
+                                        this car?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex flex-column align-items-center gap-4">
+                                    <a class="w-75 border rounded-3 overflow-hidden bg-light d-flex justify-content-between nav-link text-black"
+                                        href="<%= `/buyusedcar/showcar/${carId}/testdrive-hub` %>">
+                                        <div class="d-flex flex-column p-4">
+                                            <h5>GOCAR Hub</h5>
+                                            <h6 class="fw-light custonFs">
+                                                <%= car.carParkedAt.building %>, <%= car.city %>
+                                            </h6>
+                                            <p class="custonFs text-warning customFw">SELECT ></p>
+                                        </div>
+                                        <div class="w-25">
+                                            <img class="w-100 h-100"
+                                                src="https://assets.cars24.com/production/c2b-website/240903170018/js/d7881b546c51f04ffc4b5e13753e3a69.png"
+                                                alt="">
+                                        </div>
+                                    </a>
+                                    <a class="w-75 border rounded-3 overflow-hidden bg-light d-flex justify-content-between nav-link text-black"
+                                        href="<%= `/buyusedcar/showcar/${carId}/testdrive-home` %>">
+                                        <div class="d-flex flex-column p-4">
+                                            <h5>Home</h5>
+                                            <h6 class="fw-light custonFs">For refundable deposit of ₹499</h6>
+                                            <p class="custonFs text-warning customFw">SELECT ></p>
+                                        </div>
+                                        <div class="w-25">
+                                            <img class="w-100 h-100"
+                                                src="https://assets.cars24.com/production/c2b-website/240903170018/js/b5807bd4b95a6b65aeeb4af30ba33ff7.png"
+                                                alt="">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Modal 3 -->
+                    <div class="modal fade" id="inspectionReport" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content rounded-5">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Inspection Report</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <!-- Sidebar with buttons for Imperfections and Repaired Parts -->
+                                            <div
+                                                class="col-md-3 col-12 d-flex flex-md-column gap-4 mb-3 mb-md-0 border-end">
+                                                <div
+                                                    class="imperfectBtn p-2 border hover rounded-4 d-flex gap-3  justify-content-between align-items-center">
+                                                    <a class="nav-link cursor m-0 fw-bold">Imperfections</a>
+                                                    <h6 class="rounded-3 m-0 px-2 py-1 bg-warning text-dark">
+                                                        <%= countImperfections %>
+                                                    </h6>
+                                                </div>
+                                                <div
+                                                    class="repairedBtn p-2 border hover rounded-4 d-flex gap-3 justify-content-between align-items-center">
+                                                    <a class="nav-link cursor m-0 fw-bold">Repaired Parts</a>
+                                                    <h6 class="rounded-3 m-0 px-2 py-1 bg-info text-dark">
+                                                        <%= countRepairedParts %>
+                                                    </h6>
+                                                </div>
+                                            </div>
+
+                                            <!-- Imperfections section -->
+                                            <div class="col-md-9 col-12 imperfections scrollable-large">
+                                                <% if (countImperfections> 0) { %>
+                                                    <% car.carInspectionReport.imperfections.forEach((item)=> { %>
+                                                        <div
+                                                            class="d-flex p-3 gap-3 justify-content-start align-items-center border-bottom">
+                                                            <h6 class="mb-0 flex-grow-1">
+                                                                <%= item.partName %>
+                                                            </h6>
+                                                            <img class="w-50 rounded-4  img-fluid"
+                                                                src="<% if (item.partImage) { %>data:image/jpeg;base64,<%= item.partImage.toString('base64') %><% } %>"
+                                                                alt="">
+                                                        </div>
+                                                        <% }) %>
+                                                            <% } else { %>
+                                                                <div class="alert alert-secondary text-center"
+                                                                    role="alert">
+                                                                    No imperfections found.
+                                                                </div>
+                                                                <% } %>
+                                            </div>
+
+                                            <!-- Repaired parts section -->
+                                            <div class="col-md-9 col-12 repaired scrollable-large d-none">
+                                                <div class="alert alert-warning text-center" role="alert">
+                                                    Parts with dents and scratches have been repaired and repainted by
+                                                    professionals.
+                                                </div>
+                                                <% if (countRepairedParts> 0) { %>
+                                                    <% car.carInspectionReport.repairedParts.forEach((item)=> { %>
+                                                        <div
+                                                            class="d-flex p-3 gap-3 justify-content-start align-items-center border-bottom">
+                                                            <h6 class="mb-0 flex-grow-1">
+                                                                <%= item.partName %>
+                                                            </h6>
+                                                            <img class="w-25 rounded-4 img-fluid"
+                                                                src="<% if (item.partImage) { %>data:image/jpeg;base64,<%= item.partImage.toString('base64') %><% } %>"
+                                                                alt="">
+                                                        </div>
+                                                        <% }) %>
+                                                            <% } else { %>
+                                                                <div class="alert alert-secondary text-center"
+                                                                    role="alert">
+                                                                    No repaired parts found.
+                                                                </div>
+                                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   <!-- Modal 4 -->
+<div class="modal fade" id="serviceReport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Service History Report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-auto">
+                <a href="/download/pdf/<%= car._id %>" 
+                    class="nav-link btn btn-warning rounded-5 px-4 py-3 gap-4 d-flex justify-content-around align-items-content"
+                    onclick="setTimeout(function() { 
+                        var modal = bootstrap.Modal.getInstance(document.getElementById('serviceReport'));
+                        modal.hide(); 
+                    }, 500);">
+                    <h6 class="m-0">Download Service History Report </h6>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-download my-auto" viewBox="0 0 16 16">
+                       <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                       <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <%- include("footer.ejs") -%>
+
+
+            <script>
+                const chevronLeftBtn = document.querySelector(".bi-chevron-left");
+                const chevronRightBtn = document.querySelector(".bi-chevron-right");
+                const imgSelectorSlider = document.querySelector(".img-selector");
+
+                chevronLeftBtn.addEventListener("click", function () {
+                    imgSelectorSlider.scrollLeft -= 250;
+                })
+
+                chevronRightBtn.addEventListener("click", function () {
+                    imgSelectorSlider.scrollLeft += 250;
+                })
+
+
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    const imperfectBtn = document.querySelector(".imperfectBtn");
+                    const repairedBtn = document.querySelector(".repairedBtn");
+                    const imperfectionsDiv = document.querySelector(".imperfections");
+                    const repairedDiv = document.querySelector(".repaired");
+
+                    imperfectBtn.addEventListener("click", function () {
+                        // Show imperfections div, hide repaired div
+                        imperfectionsDiv.classList.remove('d-none')
+                        imperfectBtn.classList.add('bg-light', 'text-black')
+
+                        repairedDiv.classList.add('d-none')
+                        repairedBtn.classList.remove('bg-light', 'text-black')
+
+                    });
+
+                    repairedBtn.addEventListener("click", function () {
+                        // Show repaired div, hide imperfections div
+                        repairedDiv.classList.remove('d-none')
+                        repairedBtn.classList.add('bg-light', 'text-black')
+
+                        imperfectionsDiv.classList.add('d-none')
+                        imperfectBtn.classList.remove('bg-light', 'text-black')
+
+                    });
+                });
+
+
+
+
+
+
+
+            </script>
+            <% function formatPrice(price) { let lakhPrice=price / 100000; return `${lakhPrice.toFixed(2)} Lakh`; } %>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+  <%- include("../admin_partial/admin_navbar.ejs") -%>
+
+
+    <div class="col-md-10 container mt-4  scrollable-large">
+
+ <div class="d-flex flex-column gap-3" >
+    <h4>Total <%= allBookings.length %> bookings </h4>
+    <% allBookings.forEach((booking,index) => { %>
+
+        <div class="border p-3 rounded-3 d-flex gap-3 flex-column " >
+            <h6><%= index + 1 %></h6>
+            <h6 class="m-0">BookingId: <%= booking.bookingId %></h6>
+           <% if (booking.paymentId && booking.paymentId.length > 0 && booking.orderId && booking.orderId.length > 0) { %>
+            
+            <h6 class="m-0">Booking Type: Home</h6>
+            <h6 class="m-0">PaymentId: <%= booking.paymentId %></h6>
+            <h6 class="m-0">OrderId: <%= booking.orderId %></h6>
+            
+           <% }else{ %>
+
+            <h6 class="m-0">Booking Type: Gocar Hub</h6>
+
+            <% } %>
+            <h6 class="m-0">UserId: <%= booking.userId %></h6>
+            <h6 class="m-0">UserName: <%= booking.userName %></h6>
+            <h6 class="m-0">CarId: <%= booking.carId %></h6>
+            <h6 class="m-0">Address: <%= booking.address %></h6>
+            <h6 class="m-0">Date: <%= booking.date %></h6>
+            <h6 class="m-0">Time: <%= booking.time %></h6>
+            
+
+
+        </div>
+                
+    <% }); %>
+ </div>
+     
+
+    </div>
+
+    </div>
+
+   
+
+</body>
+
+</html>
