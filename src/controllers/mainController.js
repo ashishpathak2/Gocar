@@ -438,7 +438,7 @@ async function handleRazorpayPayment(req, res) {
       name: currentUser.name,
       email: currentUser.email
     },
-    callback_url: "http://localhost:3000/payment/callback", // Use environment variable
+    callback_url: "https://gocars.site/payment/callback", // Use environment variable
     callback_method: "get",
   };
 
