@@ -10,10 +10,28 @@
 <body >
     <%- include("navbar.ejs",{ page : "/buyusedcar" }) -%>
 
-        <div class="container px-3 px-md-0" >
-            <div class="row mt-5" >
+        <div class="container px-5 px-md-0">
+            <div class="row mt-3 mt-md-5 " >
                 <!-- Left Column: Budget and Car Brand Filters -->
-                <div class="col-12 col-md-4 col-lg-3 border rounded-2 p-4 scrollable-large">
+                <button
+                type="button"
+                class="applyFilterBtn d-md-none w-50 transitions border rounded-3 btn px-1 py-2 btn-warning mb-2 d-flex align-items-center justify-content-around"
+              >
+                <p class="fw-bold m-0">Apply Filters</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="m-0 closeBtn d-none bi bi-x-lg"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"
+                  />
+                </svg>
+              </button>
+              <div class="filterDiv col-12 col-md-4 col-lg-3 border rounded-2 p-4 scrollable-large d-none d-md-block">
                     <form action="/buyusedcar" method="get" class="filterForm">
                         <div class="BugetRangeFilter">
                             <div class="d-flex justify-content-between">
@@ -54,23 +72,23 @@
 
                             <h6 class="customfs-2 mt-3">Suggestions</h6>
                             <div class="price-cards d-flex flex-row flex-wrap gap-2">
-                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 300000 ? 'bg-dark text-white transitions'  : '' %> "
+                                <div class="border rounded-3 px-3 py-1 customfs-1 cursor  <%= budget == 300000 ? 'bg-dark text-white transitions'  : '' %> "
                                     data-value="300000">Under 3 lakhs</div>
-                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 500000 ? 'bg-dark text-white transitions'  : '' %> "
+                                <div class="border rounded-3 px-3 py-1 customfs-1 cursor  <%= budget == 500000 ? 'bg-dark text-white transitions'  : '' %> "
                                     data-value="500000">Under 5 lakhs</div>
-                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 800000 ? 'bg-dark text-white transitions'  : '' %> "
+                                <div class="border rounded-3 px-3 py-1 customfs-1 cursor  <%= budget == 800000 ? 'bg-dark text-white transitions'  : '' %> "
                                     data-value="800000">Under 8 lakhs</div>
-                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 1000000 ? 'bg-dark text-white transitions'  : '' %> "
+                                <div class="border rounded-3 px-3 py-1 customfs-1 cursor  <%= budget == 1000000 ? 'bg-dark text-white transitions'  : '' %> "
                                     data-value="1000000">Under 10 lakhs</div>
-                                <div class="border rounded-3 px-3 py-1 customfs-2 cursor  <%= budget == 1200000 ? 'bg-dark text-white transitions'  : '' %> "
+                                <div class="border rounded-3 px-3 py-1 customfs-1 cursor  <%= budget == 1200000 ? 'bg-dark text-white transitions'  : '' %> "
                                     data-value="1200000">Under 12 lakhs</div>
                             </div>
                         </div>
 
                         <div class="carbrandFilter">
                             <h6 class="mt-5 mb-3"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings-fill me-1" viewBox="0 0 16 16">
-  <path d="M15 .5a.5.5 0 0 0-.724-.447l-8 4A.5.5 0 0 0 6 4.5v3.14L.342 9.526A.5.5 0 0 0 0 10v5.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14h1v1.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5zM2 11h1v1H2zm2 0h1v1H4zm-1 2v1H2v-1zm1 0h1v1H4zm9-10v1h-1V3zM8 5h1v1H8zm1 2v1H8V7zM8 9h1v1H8zm2 0h1v1h-1zm-1 2v1H8v-1zm1 0h1v1h-1zm3-2v1h-1V9zm-1 2h1v1h-1zm-2-4h1v1h-1zm3 0v1h-1V7zm-2-2v1h-1V5zm1 0h1v1h-1z"/>
-</svg> Company</h6>
+                                                        <path d="M15 .5a.5.5 0 0 0-.724-.447l-8 4A.5.5 0 0 0 6 4.5v3.14L.342 9.526A.5.5 0 0 0 0 10v5.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14h1v1.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5zM2 11h1v1H2zm2 0h1v1H4zm-1 2v1H2v-1zm1 0h1v1H4zm9-10v1h-1V3zM8 5h1v1H8zm1 2v1H8V7zM8 9h1v1H8zm2 0h1v1h-1zm-1 2v1H8v-1zm1 0h1v1h-1zm3-2v1h-1V9zm-1 2h1v1h-1zm-2-4h1v1h-1zm3 0v1h-1V7zm-2-2v1h-1V5zm1 0h1v1h-1z"/>
+                                                    </svg> Company</h6>
                             <div class="d-flex border border-1 p-1 align-items-center gap-2 rounded-3">
                                 <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -146,14 +164,14 @@
                          </div>
 
                          <!-- Right Column: Top Bar -->
-                         <div class="container mt-5 mt-md-0 ps-0 ps-md-4 col-12 col-md-8 col-lg-9">
+                         <div class="container mt-3 mt-md-0 ps-0 ps-md-4 col-12 col-md-8 col-lg-9">
                         <div class="row ">
                         <!-- Top Bar Content -->
-                        <div class="col-12 d-flex justify-content-between align-items-center">
-                            <h4>
+                        <div class="col-12 d-flex justify-content-between mb-2 mb-md-0 align-items-center">
+                            <h4 class="customfs-2 ">
                                 <%= count %> Used cars in <%= cityName %>
                             </h4>
-                            <h6 class="d-flex gap-2 "> Sort By:
+                            <h6 class="d-flex gap-2 customfs-2  m-0 "> Sort By:
                                 <ul class="navbar-nav mb-2  mb-lg-0">
                                     <li class="nav-item dropdown">
                                         <a class="nav-link text-primary dropdown-toggle p-0 " href="#"
@@ -210,33 +228,36 @@
                         </div>
                         </div>
 
-                    <!-- Main Content -->
-                    <div class="row row-cols-1 row-cols-md-2  row-cols-lg-3 gy-5">
-                        <% carInfo.forEach((e)=> { %>
-                          <div class="col">
-                            <a href="/buyusedcar/showcar/<%= e._id %>" class="text-decoration-none nav-link">
-                              <div class="card car-card hover rounded-4 shadow overflow-hidden">
-                                <img src="<% if (e.carImage) { %>data:image/jpeg;base64,<%= e.carImage.toString('base64') %><% } %>" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">
-                                    <%= e.carCompany %> <%= e.carName %>
-                                  </h5>
-                                  <p class="card-text fw-bold custonFs text-muted">
-                                    <%= e.carDftDetail[0] %> KM - <%= e.carDftDetail[1] %> - <%= e.carDftDetail[2] %>
-                                  </p>
-                                  <h4 class="card-price fw-bold">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                      fill="currentColor" class="bi bi-currency-rupee"
-                                      viewBox="0 0 16 16">
-                                      <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
-                                    </svg><%= formatPrice(e.carPrice) %>
-                                  </h4>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                        <% }) %>
-                      </div>
+                   <!-- Main Content -->
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-5 justify-content-center">
+      <% carInfo.forEach((e) => { %>
+        <div class="col d-flex justify-content-center">
+          <a href="/buyusedcar/showcar/<%= e._id %>" class="text-decoration-none nav-link">
+            <div class="card car-card hover rounded-4 shadow overflow-hidden">
+              <img src="<% if (e.carImage) { %>data:image/jpeg;base64,<%= e.carImage.toString('base64') %><% } %>" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= e.carCompany %> <%= e.carName %>
+                </h5>
+                <p class="card-text fw-bold custonFs text-muted">
+                  <%= e.carDftDetail[0] %> KM - <%= e.carDftDetail[1] %> - <%= e.carDftDetail[2] %>
+                </p>
+                <h4 class="card-price fw-bold">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-currency-rupee"
+                    viewBox="0 0 16 16">
+                    <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
+                  </svg><%= formatPrice(e.carPrice) %>
+                </h4>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  
                       
                 </div>
 

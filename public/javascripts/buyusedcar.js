@@ -89,3 +89,20 @@ function onSearch(input) {
         brand.classList.toggle('d-none', !brandNameInText.includes(textValue));
     });
 }
+
+const applyFilterBtn = document.querySelector(".applyFilterBtn");
+const filterDiv = document.querySelector(".filterDiv");
+const closeBtn = document.querySelector(".closeBtn");
+
+applyFilterBtn.addEventListener("click", function controlFilterDiv() {
+  if (!filterDiv.classList.contains("d-none")) {
+    // Immediately hide the filterDiv and closeBtn
+    filterDiv.classList.add("d-none");
+    closeBtn.classList.add("d-none");
+  } else {
+    // Show the filterDiv and closeBtn
+    filterDiv.classList.remove("d-none");
+    closeBtn.classList.remove("d-none");
+  }
+});
+

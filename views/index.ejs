@@ -39,20 +39,36 @@
       }
     }
 
-    /* Adjust width for .over-img */
-    .over-img {
-      width: 100%;
-      /* Default for small screens */
-      max-width: 100%;
-      /* Prevents exceeding container width */
-    }
+    
+    .service-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    @media (min-width: 768px) {
-      .over-img {
-        width: 75%;
-        /* Width for medium and larger screens */
-      }
-    }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card img {
+            object-fit: cover;
+            height: 180px;
+        }
+
+        .service-card .card-body {
+            text-align: center;
+        }
+
+        .service-card .btn {
+            color: #ff6600;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            text-decoration: underline;
+        }
   </style>
 
 
@@ -65,17 +81,15 @@
     <main class="position-relative">
       <div class="hero-img">
         <!-- Large image for medium and larger screens -->
-        <img src="https://media.wired.com/photos/5e162edc7ecdd1000834110d/master/pass/Transpo_Ta11.jpg"
-          class="img-fluid w-100 d-none d-md-block" alt="Hero Image">
+        <img src="/images/hero.jpg" class="img-fluid d-none d-md-block" alt="Hero Image">
 
         <!-- Smaller image for small screens -->
-        <img src="https://media.wired.com/photos/5e162edc7ecdd1000834110d/master/pass/Transpo_Ta11.jpg"
-          class="img-fluid w-100 d-md-none" style="height: 300px; object-fit: cover;" alt="Hero Image Small">
+        <img src="/images/hero.jpg" class="img-fluid d-md-none" style="object-fit:cover;" alt="Hero Image Small">
       </div>
 
 
-      <div class="over-img rounded-5 p-2 z-2 bg-transparent position-absolute start-50 translate-middle-x">
-        <div class="d-flex border border-2 p-2 bg-light align-items-center gap-1 rounded-5">
+      <div class="over-img w-100 rounded-5 p-2 z-2 bg-transparent position-absolute start-50 translate-middle-x">
+        <div class="d-flex w-75 m-auto px-1 border border-2 p-md-2 bg-light align-items-center gap-1 rounded-5">
           <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
             class="bi bi-search " viewBox="0 0 16 16">
             <path
@@ -89,20 +103,124 @@
         </div>
 
         <div class="cars-brand d-flex flex-wrap gap-2 gap-md-4 gap-lg-5 justify-content-center mt-3 mt-md-4">
-          <img src="images/logo1.png" alt="Logo 1" class="img-fluid logo-img">
-          <img src="images/logo2.png" alt="Logo 2" class="img-fluid logo-img">
-          <img src="images/logo5.png" alt="Kia Logo" class="img-fluid logo-img">
-          <img src="images/logo6.png" alt="Mahindra Logo" class="img-fluid logo-img">
+          <img src="images/logo1.png" alt="Logo 1" class="img-fluid logo-img d-none d-md-block">
+          <img src="images/logo2.png" alt="Logo 2" class="img-fluid logo-img d-none d-md-block" >
+          <img src="images/logo5.png" alt="Kia Logo" class="img-fluid logo-img d-none d-md-block" >
+          <img src="images/logo6.png" alt="Mahindra Logo" class="img-fluid logo-img d-none d-md-block" >
           <img src="images/logo3.png" alt="Logo 3" class="img-fluid logo-img d-none d-lg-block">
-          <img src="images/logo4.png" alt="Logo 4" class="img-fluid logo-img">
+          <img src="images/logo4.png" alt="Logo 4" class="img-fluid logo-img d-none d-md-block" >
           <img src="https://i.pinimg.com/originals/5b/ac/94/5bac942d02e70ce67498bf2ff04efe97.png" alt=""
-            class="img-fluid logo-img">
+            class="img-fluid logo-img d-none d-md-block" >
           <img src="https://cdn.pixabay.com/photo/2016/08/15/18/18/honda-1596081_1280.png" alt="Honda Logo"
-            class="img-fluid logo-img">
+            class="img-fluid logo-img d-none d-md-block" >
         </div>
       </div>    
 
     </main>
+
+    <div class="container my-5 w-75">
+      <h2 class="text-center mb-4">Our services</h2>
+      <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-md-3">
+              <div class="card service-card">
+                  <img src="https://media.assettype.com/evoindia%2F2020-10%2Faffec770-297e-470a-9ed3-b8f19f01dfb7%2FVolkswagen_Polo_and_Vento.jpg?rect=0%2C80%2C1280%2C720&w=1024&auto=format%2Ccompress&fit=max" class="card-img-top" alt="Buy used cars">
+                  <div class="card-body">
+                      <h5 class="card-title fw-bold fs-4">Buy used cars</h5>
+                      <p class="card-text">Affordable pre-loved cars</p>
+                      <a href="/buyusedcar" class="btn">Know more →</a>
+                  </div>
+              </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="col-md-3">
+              <div class="card service-card position-relative">
+                  <span class="badge rounded-5 bg-dark position-absolute top-0 end-0 m-2">Coming Soon</span>
+                  <img src="https://media.cars24.com/india/cms/prod/banners/root/2024/07/25/83cc3d65-d59e-4b54-a7eb-805335918b33-SELL.webp" class="card-img-top" alt="Sell car">
+                  <div class="card-body">
+                      <h5 class="card-title fw-bold fs-4">Sell car</h5>
+                      <p class="card-text">Sell fast, stress-free</p>
+                      <a href="/sellcar" class="btn">Know more →</a>
+                  </div>
+              </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="col-md-3">
+              <div class="card service-card position-relative">
+                  <span class="badge rounded-5 bg-dark position-absolute top-0 end-0 m-2">Coming Soon</span>
+                  <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" class="card-img-top" alt="Car loan">
+                  <div class="card-body">
+                      <h5 class="card-title fw-bold fs-4">Car loan</h5>
+                      <p class="card-text">Low rates, fast approval</p>
+                      <a href="#" class="btn disabled border-0">Know more →</a>
+                  </div>
+              </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="col-md-3">
+              <div class="card service-card position-relative">
+                  <span class="badge rounded-5 bg-dark position-absolute top-0 end-0 m-2">Coming Soon</span>
+                  <img src="https://media.cars24.com/india/cms/prod/banners/root/2024/07/25/dfc02025-cdaa-4917-8dd7-f5dd30c50ee5-Hire-driver.webp" class="card-img-top" alt="Hire driver">
+                  <div class="card-body">
+                      <h5 class="card-title fw-bold fs-4">Hire driver</h5>
+                      <p class="card-text">Expert drivers on demand</p>
+                      <a href="#" class="btn disabled border-0">Know more →</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container my-5 w-75">
+    <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            1. What should I check before buying a used car?
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Inspect the car's condition, review the service history, and test drive it. Verify all documents, including ownership and registration papers.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            2. Can I return the car if I am not satisfied after purchase?
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Some sellers offer a return policy within a specific period. Confirm the return window and any applicable conditions before finalizing the purchase.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            3. Can I finance a used car, and what are the loan terms?
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Financing options are available for used cars, with terms depending on the car and your credit. Interest rates and down payments may vary, so review all options.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            4. How do I know if the price of the used car is fair?
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">Compare the car’s price with similar vehicles in the market. Consider factors like age, condition, and mileage to assess if the price is reasonable.</div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+  
+
+
 
     <%- include("footer.ejs") -%>
 
